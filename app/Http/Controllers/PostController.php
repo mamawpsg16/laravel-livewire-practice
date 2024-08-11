@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
@@ -15,7 +16,8 @@ class PostController extends Controller
     public function index()
     {
         $reports = DB::table('reports')->latest()->get()->toArray();
-        return view('posts.index',['hasPost' => true, 'reports' => $reports]);
+        $relationships = User::with('phone','posts','roles')->get();
+        return view('posts.index',['hasPost' => true, 'reports' => $reports, 'relationships' => $relationships]);
     }
 
     /**
