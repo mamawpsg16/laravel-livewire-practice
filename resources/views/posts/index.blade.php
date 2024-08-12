@@ -8,7 +8,31 @@
         }
      </style>
     @endpush
-
+        <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>NAME</th>
+                <th>PHONE</th>
+                <th>ROLES</th>
+                <th>PIVOT TIMESTAMP</th>
+                <th>PIVOT TEST</th>
+            </tr>
+        </thead>
+        <tbody>
+            @forelse ($relationships as $user )
+            {{dd($user->roles[0]->pivot->created_at)}}
+                <tr>
+                    <td>{{$user->id}}</td>
+                    <td>{{$user->name}}</td>
+                    <td>{{$user->phone->number}}</td>
+                    <td>{{$user->roles->pluck('name')->implode(', ')}}</td>
+                </tr>
+            @empty
+                <p>No users</p>
+            @endforelse
+        </tbody>
+    </table>
     <!-- Main content -->
     <livewire:counter/> 
     <livewire:items />

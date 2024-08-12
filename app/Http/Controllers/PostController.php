@@ -4,8 +4,12 @@ namespace App\Http\Controllers;
 
 use Exception;
 use App\Models\Post;
+<<<<<<< HEAD
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+=======
+use App\Models\User;
+>>>>>>> 30de8235b66cdadc66ecb1a915a87ea88383023d
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
@@ -22,6 +26,7 @@ class PostController extends Controller
      */
     public function index()
     {
+<<<<<<< HEAD
         try {
             $data = DB::table('cities')->get()->toArray();
         } catch (\Exception $e) {
@@ -29,6 +34,11 @@ class PostController extends Controller
         }
         
         return view('posts.index',['hasPost' => true, 'reports' => []]);
+=======
+        $reports = DB::table('reports')->latest()->get()->toArray();
+        $relationships = User::with('phone','posts','roles')->get();
+        return view('posts.index',['hasPost' => true, 'reports' => $reports, 'relationships' => $relationships]);
+>>>>>>> 30de8235b66cdadc66ecb1a915a87ea88383023d
     }
 
     /**
