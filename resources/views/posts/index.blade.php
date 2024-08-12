@@ -15,7 +15,30 @@
     <livewire:user-profile :name="'John Doe'" :age="30" />
     @livewireScripts
     <x-forms.input type="text" name="kevin" :is-required="true"></x-forms.input>
+
     Your main content goes here.
+    <a href="{{ url('/export') }}">Export CSV</a>
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    <form action="{{ route('upload') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        <input type="file" name="file" accept=".csv">
+        <button type="submit">Upload</button>
+    </form>
 
     @push('scripts')
         <script>

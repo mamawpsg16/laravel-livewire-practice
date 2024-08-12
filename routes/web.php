@@ -20,3 +20,5 @@ Route::get('/', function () {
 });
  
 Route::resource('posts', PostController::class);
+Route::post('/upload', [PostController::class, 'upload'])->name('upload');
+Route::get('/export', [PostController::class, 'export']);
